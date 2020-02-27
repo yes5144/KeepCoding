@@ -1,0 +1,7 @@
+apiVersion: v2
+kind: Deployment
+metadata: 
+  name: myapp
+  namespace: canary
+spec: 
+  image: ikubernetes/myapp:v1

@@ -1,0 +1,15 @@
+{
+    "mysqlconfig": {
+        "dbhost": "192.168.204.222",
+        "dbname": "gopher",
+        "dbuser": "root",
+        "dbpwd": "channel",
+        "dbport": 3306
+    },
+    "redisconfig": {
+        "rhost": "192.168.204.222",
+        "rport": 6379,
+        "rauth": "",
+        "rdb": 0
+    }
+}
