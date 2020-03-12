@@ -1,0 +1,53 @@
+{{ define "person/userall.html" }}
+{{template "common/header" .}}
+<div class="row pull-right" style="margin-bottom: 20px;margin-right: 5px;text-align:right;margin-right: 40px;">
+
+    <input type="text" placeholder="请输入名称" id="txt_search" />
+    <button class="" onclick="search()">搜索</button>
+
+    <button class="" onclick="adddata()">新增</button>
+</div>
+
+<table class="table table-striped table-hover table-bordered ">
+    <thead>
+        <th style="text-align: center">ID</th>
+        <th style="text-align: center">姓氏</th>
+        <th style="text-align: center">名称</th>
+        <th style="text-align: center">操作</th>
+    </thead>
+
+    <tbody id="sortable">
+        <!-- {{range .data}}
+        <tr>
+            <td>{{.ID}}</td>
+            <td>{{.FirstName}}</td>
+            <td>{{.LastName}}</td>
+            <td> <a href="/person/one?id={{.ID}}">详情</a>&nbsp;&nbsp;<a href="/person/del?id={{.ID}}">删除</a> </td>
+        </tr>
+        {{end}} -->
+        {{.data}}
+    </tbody>
+</table>
+<!--分页部分-->
+<div style="margin: 20px 0px 10px 0;">
+    <table style="margin: 0 auto;">
+        <tr>
+            <td>
+                <div id="pagination" class="pagination"></div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    (function () {
+        $.get("/v1/person/all", function (data) {
+            console.log(data);
+        });
+    })();
+</script>
+
+{{.msg}}
+
+{{template "common/footer" .}}
+{{end}}

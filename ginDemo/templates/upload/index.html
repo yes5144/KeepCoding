@@ -1,0 +1,28 @@
+{{ define "upload/index.html" }}
+{{template "common/header" .}}
+<div class="row pull-right" style="margin-bottom: 20px;margin-right: 5px;text-align:right;margin-right: 40px;">
+
+    <input type="text" placeholder="请输入名称" id="txt_search" />
+    <button class="" onclick="search()">搜索</button>
+
+    <button class="" onclick="adddata()">新增</button>
+</div>
+
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <!-- <label for="upload">选择文件</label> -->
+    <input type="file" name="upload" multiple>
+    <button type="submit">上传</button>
+</form>
+<!--分页部分-->
+<div style="margin: 20px 0px 10px 0;">
+    <table style="margin: 0 auto;">
+        <tr>
+            <td>
+                <div id="pagination" class="pagination"></div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+{{template "common/footer" .}}
+{{end}}

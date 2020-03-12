@@ -19,6 +19,16 @@ func InsertPerson(first, last string) error {
 	return nil
 }
 
+func QueryPersonOne(id int) (Person, error) {
+	var person Person
+	// DB get 和 select 区别？
+	err := DB.Get(&person, "select * from person where id=?", id)
+	if err != nil {
+		log.Printf("select one err, Failed code: %#v", err)
+	}
+	return person, err
+}
+
 func QueryPersonAll() ([]Person, error) {
 	persons := make([]Person, 0)
 	err := DB.Select(&persons, "select * from person")

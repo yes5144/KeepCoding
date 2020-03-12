@@ -3,6 +3,7 @@ package controllers
 import (
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/yes5144/KeepCoding/ginDemo/models"
@@ -24,12 +25,48 @@ func InsertPersonView(c *gin.Context) {
 }
 
 func QueryPersonAllView(c *gin.Context) {
+	c.HTML(http.StatusOK, "person/userall.html", gin.H{
+		"status": http.StatusOK,
+		"title":  "userall",
+		"msg":    "querey all success",
+	})
+	// c.HTML(http.StatusOK, "person/userall.html", nil)
+}
+
+func ApiQueryPersonAll(c *gin.Context) {
 	ret, err := models.QueryPersonAll()
 	if err != nil {
-		log.Printf("query err, Failed code: %#v", err)
+		log.Printf("quere all err, Failed code: %#v", err)
 	}
+	log.Println("query all: ", ret)
 	c.JSON(http.StatusOK, gin.H{
-		"msg":  "查询成功",
+		"data": ret,
+	})
+}
+
+func QueryPersonOneView(c *gin.Context) {
+	log.Println("query person one view")
+	c.HTML(http.StatusOK, "person/userone.html", gin.H{
+		"status": http.StatusOK,
+		"title":  "queryOne",
+		"msg":    "select one",
+	})
+
+}
+
+func ApiQueryPersonOne(c *gin.Context) {
+	log.Println("api query person one")
+	id, err := strconv.Atoi(c.Query("id"))
+	if err != nil {
+		log.Printf("api querey person one , Failed code: %#v", err)
+	}
+	ret, err := models.QueryPersonOne(id)
+	if err != nil {
+		log.Printf("query person One, Failed code: %#v", err)
+	}
+	log.Println("date ret: ", ret)
+	c.JSON(http.StatusOK, gin.H{
+		// "status": http.StatusOK,
 		"data": ret,
 	})
 }
