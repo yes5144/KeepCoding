@@ -1,7 +1,9 @@
 package main
 
 import (
+	// "encoding/json"
 	"log"
+	"time"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -9,10 +11,12 @@ import (
 
 // UserInfo ...
 type UserInfo struct {
-	ID     int
-	Name   string
-	Gender string
-	Hobby  string
+	// ID       int       `json:"id,omitempty" gorm:"primary_key"`
+	// gorm.Model
+	Name     string    `json:"name,omitempty"`
+	Gender   string    `json:"gender,omitempty"`
+	Hobby    string    `json:"hobby,omitempty"`
+	CreateAt time.Time `json:"create_at,omitempty" gorm:"type:timestamp"`
 }
 
 // https://www.liwenzhou.com/posts/Go/gorm/
@@ -28,18 +32,28 @@ func main() {
 	}
 	defer db.Close()
 
+	db.LogMode(true)
 	// 自动迁移
 	db.AutoMigrate(&UserInfo{})
-	u1 := UserInfo{23, "qimi", "man", "篮球,羽毛球"}
-	u2 := UserInfo{24, "wkk", "man", "boxxing,table"}
+	u1 := UserInfo{
+		Name:   "qimi2",
+		Gender: "manhh",
+		Hobby:  "篮球,羽毛球"}
+	// u2 := UserInfo{24, "wkk", "man", "boxxing,table"}
 
 	db.Create(&u1)
-	db.Create(&u2)
+	// db.Create(&u2)
 
 	// 查询
 	var u = new(UserInfo)
 	db.First(u)
+	p := new(UserInfo)
+	// err = json.Unmar([]byte(u), p)
+	// if err != nil {
+	// 	log.Fatalf("瞎jbj, Failed code %#v", err)
+	// }
 	log.Printf("Type: %T, value: %#v", u, u)
+	log.Printf("Type: %T, value: %#v", p, p)
 
 	// all
 	var u4 = new(UserInfo)
