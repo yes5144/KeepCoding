@@ -2,6 +2,7 @@ package models
 
 import "log"
 
+// https://www.tuicool.com/articles/yYFf2i7
 // Person ...
 type Person struct {
 	ID        int64  `json:"id" db:"id"`
