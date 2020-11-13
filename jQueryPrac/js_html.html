@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css" rel="stylesheet">
+    <script src="https: //cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+</head>
+
+<body>
+    <p id="myp">hhhhhhhhh</p>
+    <button id="mybutton1">modify-01</button>
+    <button id="mybutton2">modify-02</button>
+    <button id="mybutton3">modify-03</button>
+    <button id="mybutton4">modify-04</button>
+    <hr>
+
+    <!-- #page>div.logo+ul#navigation>li*5>a{Item $} -->
+    <!-- #ul.ul>li*3>a{lilili $} -->
+
+    <div id="buttons">
+        <button class="button">modify 1</button>
+        <button class="button">modify 2</button>
+        <button class="button">modify 3</button>
+    </div>
+
+    <div class="form-group">
+        <select class="selectpicker">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">客资类型：</label>
+        <div class="col-sm-4">
+            <select id="usertype" name="usertype" class="selectpicker show-tick form-control" multiple
+                data-live-search="false">
+                <option value="0">苹果</option>
+                <option value="1">菠萝</option>
+                <option value="2">香蕉</option>
+                <option value="3">火龙果</option>
+                <option value="4">梨子</option>
+                <option value="5">草莓</option>
+                <option value="6">哈密瓜</option>
+                <option value="7">椰子</option>
+                <option value="8">猕猴桃</option>
+                <option value="9">桃子</option>
+            </select>
+        </div>
+    </div>
+
+    <script>
+        // 自执行函数
+        (function () {
+            console.log("hello world");
+        })()
+
+        // modify tag 设置
+        $("#mybutton1").click(function () {
+            $("#myp").html("<b>hello</b>");
+        })
+        $("#mybutton2").click(function () {
+            $("#myp").text("<b>hello</b>");
+        })
+        $("#mybutton3").click(function () {
+            $("#myp").attr("href", "hello");
+            $("#myp").val("hello again");
+            console.log($("#myp").val());
+
+        })
+
+        // fff
+    </script>
+</body>
+
+</html>
