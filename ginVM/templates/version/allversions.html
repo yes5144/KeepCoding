@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <title>all versions</title>
+</head>
+
+<body>
+    <h2>all version</h2>
+    <p>welcome all </p>
+    <div class="col-md-2 column">
+        <div class="panel-group" id="panel-515998">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a class="panel-title" data-toggle="collapse" data-parent="#panel-515998"
+                        href="#panel-element-464636">折叠分组 Group Item #1</a>
+                </div>
+                <div id="panel-element-464636" class="panel-collapse  in">
+                    <div class="panel-body">
+                        <ul>
+                            <li>item 1</li>
+                            <li>item 2</li>
+                            <li>item 3</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-515998"
+                        href="#panel-element-716518">折叠分组 Group Item #2</a>
+                </div>
+                <div id="panel-element-716518" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <ul>
+                            <li>item 1</li>
+                            <li>item 2</li>
+                            <li>item 3</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 column">
+        <!-- <button class="btn btn-primary" type="submit">批量</button> -->
+        <input type="button" id="getAllSelectedId" value="获取被选中的id" />
+        <table class="table table-hover table-bordered">
+            <thead>
+                <th><input type="checkbox" id="allAndNotAll" class="all" /></th>
+                <th>game</th>
+                <th>zone</th>
+                <th>version</th>
+                <th>next_version</th>
+                <th>do something</th>
+            </thead>
+            <tbody id="mybody">
+                <tr>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+    <script>
+        (function () {
+            console.log("hello versions");
+            $.get("/api/v1/version/all",
+                function (res) {
+                    // console.log(res);
+                    html = ''
+                    $.each(res.data, function (k, dv) {
+                        // console.log(k, "-->", dv);
+                        // $.each(dv, function (n, m) {
+                        version = dv.version
+                        version_list = version.split(".");
+                        l_ver = version_list.pop()
+                        version_list.push((parseInt(l_ver) + 1).toString())
+                        new_version = version_list.join('.')
+                        console.log("new_version", new_version);
+                        // html += '<tr><td><span class="input-group-addon"><input type="checkbox" name=items id="sel' + dv.id + '" class="sel sel' + dv.id + '"></span></td><td>' + dv.game + "</td><td>" + dv.zone + "</td><td>" + dv.version + "</td><td>" + new_version + "</td><td> <a href=\"/version/detail/" + dv.id + "\"><strong>" + "hhh" + "</strong></a> </td ></tr >"
+                        html += '<tr><td><input type="checkbox" name=items id="sel' + dv.id + '" class="sel sel' + dv.id + '"></td><td>' + dv.game + "</td><td>" + dv.zone + "</td><td>" + dv.version + "</td><td>" + new_version + "</td><td> <a href=\"/version/detail/" + dv.id + "\"><strong>" + "hhh" + "</strong></a> </td ></tr >"
+                        // });
+                        // html += html
+                    });
+                    $("#mybody").html(html)
+                },
+                "json"
+            );
+        })();
+
+        //全选与反选方式二
+        $(function () {
+            //全选第1列
+            selectOneCloumn("allAndNotAll", 1);
+
+            //全选第三列
+            // selectOneCloumn("selectAllTwo", 3);
+        }); //$(function) End
+
+        function selectOneCloumn(btnId, cloumnNum) {
+            $("#" + btnId).click(function () {
+                if (this.checked) {
+                    $("table tr td:nth-child(" + cloumnNum + ")").each(function () {
+                        $(this).find("[type='checkbox']").prop("checked", true);
+                    });
+                } else {
+                    $("table tr td:nth-child(" + cloumnNum + ")").each(function () {
+                        $(this).find("[type='checkbox']").prop("checked", false);
+                    });
+                }
+            });
+        };
+
+        //获取被选中的id
+        $('#getAllSelectedId').click(function () {
+            var ids = [];
+            $("input[name='items']:checked").each(function () {
+                ids.push($(this).attr("id"));
+                // $.unique(ids)
+                // array 去重
+                // $.unique(ids.sort())
+            });
+
+            var delIds = ids.join(",");
+            console.log(delIds);
+            console.log(ids);
+            //可以将delIds通过jquery ajax传到后台了,在后台采用String接收这个delIds参数,然后采用split(",")分隔得到一个
+            //String[]的id数组。可以参考我的博客：http://blog.csdn.net/u013871100/article/details/52740061
+        });
+
+    </script>
+</body>
+
+</html>

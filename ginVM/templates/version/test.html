@@ -1,0 +1,74 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>louis-blog >> jQuery 对checkbox的操作</title>
+    <!-- <mce:script type='text/javascript' src="http://leotheme.cn/wp-includes/js/jquery/jquery.js"
+        mce_src="http://leotheme.cn/wp-includes/js/jquery/jquery.js"></mce:script> -->
+
+
+</HEAD>
+
+<body style="text-align:center;margin: 0 auto;font-size: 12px;"
+    mce_style="text-align:center;margin: 0 auto;font-size: 12px;">
+    <div style="border: 1px solid #999; width: 500px; padding: 15px; background: #eee; margin-top: 150px;">
+        <form name="form1" method="post" action="">
+            <input type="button" id="btn1" value="全选">
+            <input type="button" id="btn2" value="取消全选">
+            <input type="button" id="btn3" value="选中所有奇数">
+            <input type="button" id="btn4" value="反选">
+            <input type="button" id="btn5" value="获得选中的所有值">
+            <br /><br />
+            <input type="checkbox" name="checkbox" value="checkbox1">
+            checkbox1
+            <input type="checkbox" name="checkbox" value="checkbox2">
+            checkbox2
+            <input type="checkbox" name="checkbox" value="checkbox3">
+            checkbox3
+            <input type="checkbox" name="checkbox" value="checkbox4">
+            checkbox4
+            <input type="checkbox" name="checkbox" value="checkbox5">
+            checkbox5
+            <input type="checkbox" name="checkbox" value="checkbox6">
+            checkbox6
+        </form>
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+<SCRIPT LANGUAGE="JavaScript">
+    // < !--
+    $("document").ready(function () {
+        $("#btn1").click(function () {
+            $("[name='checkbox']").attr("checked", 'true');//全选
+        })
+        $("#btn2").click(function () {
+            $("[name='checkbox']").removeAttr("checked");//取消全选
+        })
+        $("#btn3").click(function () {
+            $("[name='checkbox']:even").attr("checked", 'true');//选中所有奇数
+        })
+        $("#btn4").click(function () {
+            $("[name='checkbox']").each(function () {//反选
+                if ($(this).attr("checked")) {
+                    $(this).removeAttr("checked");
+                }
+                else {
+                    $(this).attr("checked", 'true');
+                }
+            })
+        })
+        $("#btn5").click(function () {//输出选中的值
+            var str = "";
+            $("[name='checkbox'][checked]").each(function () {
+                str += $(this).val() + " ";
+                //alert($(this).val());
+            })
+            alert(str);
+        })
+    })
+        // -->
+</SCRIPT>
+
+</HTML>
