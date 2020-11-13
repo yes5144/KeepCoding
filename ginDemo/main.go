@@ -13,7 +13,7 @@ import (
 func main() {
 	log.Println("hello gin")
 	r := gin.Default()
-	r.Static("/static", "./static")
+	r.StaticFile("/static", "./static")
 	r.LoadHTMLGlob("templates/**/*")
 	r.GET("/ping", func(c *gin.Context) {
 		// c.JSON(http.StatusOK, gin.H{"msg": "pong"})

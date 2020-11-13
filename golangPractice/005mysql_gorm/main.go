@@ -26,7 +26,7 @@ type UserInfo struct {
 
 func main() {
 	log.Println("hell gorm")
-	db, err := gorm.Open("mysql", "root:channel@(192.168.204.222:3306)/gopher?charset=utf8mb4&parseTime=True&loc=Local")
+	db, err := gorm.Open("mysql", "root:channel@(192.168.204.222:3306)/gincmdb?charset=utf8mb4&parseTime=True&loc=Local")
 	if err != nil {
 		log.Printf("创建连接mysql失败, Failed code: %#v", err)
 	}
@@ -35,13 +35,10 @@ func main() {
 	db.LogMode(true)
 	// 自动迁移
 	db.AutoMigrate(&UserInfo{})
-	u1 := UserInfo{
-		Name:   "qimi2",
-		Gender: "manhh",
-		Hobby:  "篮球,羽毛球"}
-	// u2 := UserInfo{24, "wkk", "man", "boxxing,table"}
+	// u1 := UserInfo{6, "gopher", "man", "篮球,羽毛球"}
+	// u2 := UserInfo{9, "channel", "man", "拳击,table"}
 
-	db.Create(&u1)
+	// db.Create(&u1)
 	// db.Create(&u2)
 
 	// 查询
@@ -56,8 +53,12 @@ func main() {
 	log.Printf("Type: %T, value: %#v", p, p)
 
 	// all
-	var u4 = new(UserInfo)
+	var u4 []UserInfo
 	db.Find(&u4)
 	log.Printf("Type: %T, value: %#v", u4, u4)
+
+	for k, v := range u4 {
+		log.Println(k, v)
+	}
 
 }
